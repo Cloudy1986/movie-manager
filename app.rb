@@ -1,5 +1,6 @@
 require 'sinatra/base'
 require 'sinatra/reloader'
+require './lib/movie'
 
 class MovieManager < Sinatra::Base
   configure :development do
@@ -7,7 +8,12 @@ class MovieManager < Sinatra::Base
   end
 
 get '/' do
-  "Welcome to Movie Manager"
+  erb :homepage
+end
+
+get '/movies' do
+  @movies = Movie.all
+  erb :index
 end
 
 run! if app_file == $0
