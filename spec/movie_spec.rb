@@ -22,14 +22,23 @@ describe Movie do
   describe '.create' do
     it 'adds a movie to the database' do
       movie = Movie.create(title: "Platoon")
-      p movie
+
       connection = PG.connect(dbname: 'movie_manager_test') 
       result = connection.query("SELECT * FROM movies WHERE id = #{movie.id};")
-      p result[0]
 
       expect(movie).to be_a Movie
       expect(movie.id).to eq result[0]['id']
       expect(movie.title).to eq result[0]['title']
+    end
+  end
+
+  describe '.delete' do
+    it 'deletes a movie from the database' do
+      movie = Movie.create(title: 'The Darn Knight')
+      Movie.delete(id: movie.id)
+      movies = Movie.all
+
+      expect(movies.length).to eq 0
     end
   end
 

@@ -7,23 +7,30 @@ class MovieManager < Sinatra::Base
     register Sinatra::Reloader
   end
 
-get '/' do
-  erb :homepage
-end
+  enable :sessions, :method_override
 
-get '/movies' do
-  @movies = Movie.all
-  erb :index
-end
+  get '/' do
+    erb :homepage
+  end
 
-get '/movies/new' do
-  erb :new
-end
+  get '/movies' do
+    @movies = Movie.all
+    erb :index
+  end
 
-post '/movies' do
-  Movie.create(title: params["title"])
-  redirect '/movies'
-end
+  get '/movies/new' do
+    erb :new
+  end
 
-run! if app_file == $0
+  post '/movies' do
+    Movie.create(title: params["title"])
+    redirect '/movies'
+  end
+
+  delete '/movies/:id' do
+    Movie.delete(id: params['id'])
+    redirect '/movies'
+  end
+
+  run! if app_file == $0
 end

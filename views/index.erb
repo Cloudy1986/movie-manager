@@ -1,7 +1,13 @@
 <h1>Movies List</h1>
 
 <% @movies.each do |movie| %>
-<li><%= movie.title %></li>
+<li>
+  <%= movie.title %>
+  <form action="/movies/<%= movie.id %>" method="post">
+    <input type="hidden" name="_method" value="delete">
+    <input type="submit" value="Delete">
+  </form>
+</li>
 <% end %>
 
 <br>
