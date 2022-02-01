@@ -42,4 +42,14 @@ describe Movie do
     end
   end
 
+  describe '.find' do
+    it 'retrives a movie from the database' do
+      movie = Movie.create(title: 'Test Movie')
+      movie2 = Movie.find(id: movie.id)
+
+      expect(movie2.id).to eq movie.id
+      expect(movie2.title).to eq movie.title
+    end
+  end
+
 end

@@ -40,4 +40,14 @@ class Movie
     result = connection.exec_params("DELETE FROM movies WHERE id = $1;", [id])
   end
 
+  def self.find(id:)
+    if ENV['ENVIRONMENT'] == 'test'
+      connection = PG.connect(dbname: 'movie_manager_test')
+    else
+      connection = PG.connect(dbname: 'movie_manager')
+    end
+    result = connection.exec_params("SELECT * FROM movies WHERE id = $1;", [id])
+    Movie.new(id: result[0]['id'], title: result[0]['title'])
+  end
+
 end
