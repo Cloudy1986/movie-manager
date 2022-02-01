@@ -47,8 +47,21 @@ describe Movie do
       movie = Movie.create(title: 'Test Movie')
       movie2 = Movie.find(id: movie.id)
 
+      expect(movie2).to be_a Movie
       expect(movie2.id).to eq movie.id
-      expect(movie2.title).to eq movie.title
+      expect(movie2.title).to eq 'Test Movie'
+    end
+  end
+
+  describe '.update' do
+    it 'updates the title of a movie' do
+    movie = Movie.create(title: 'Test 2')
+    updated_movie = Movie.update(id: movie.id, title: 'Test 3')
+    
+    expect(updated_movie).to be_a Movie
+    expect(updated_movie.id).to eq movie.id
+    expect(updated_movie.title).to_not eq movie.title
+    expect(updated_movie.title).to eq 'Test 3'
     end
   end
 

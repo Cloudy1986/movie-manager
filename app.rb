@@ -37,5 +37,10 @@ class MovieManager < Sinatra::Base
     erb :edit
   end
 
+  patch '/movies/:id' do
+    Movie.update(id: params['id'], title: params['title'])
+    redirect '/movies'
+  end
+
   run! if app_file == $0
 end

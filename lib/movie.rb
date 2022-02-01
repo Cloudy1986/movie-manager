@@ -50,4 +50,14 @@ class Movie
     Movie.new(id: result[0]['id'], title: result[0]['title'])
   end
 
+  def self.update(id:, title:)
+    if ENV['ENVIRONMENT'] == 'test'
+      connection = PG.connect(dbname: 'movie_manager_test')
+    else
+      connection = PG.connect(dbname: 'movie_manager')
+    end
+    result = connection.exec_params("UPDATE movies SET title = $1 WHERE id = $2 RETURNING id, title;", [title, id])
+    Movie.new(id: result[0]['id'], title: result[0]['title'])
+  end
+
 end
