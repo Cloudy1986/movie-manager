@@ -7,11 +7,12 @@
     <input type="hidden" name="_method" value="delete">
     <input type="submit" value="Delete">
   </form>
-  
   <form action="/movies/<%= movie.id %>/edit" method="get">
     <input type="submit" value="Edit">
   </form>
-
+  <form action="/movies/<%= movie.id %>/comments/new" method="get">
+    <input type="submit" value="Add comment">
+  </form>
 </li>
 <% end %>
 
