@@ -43,6 +43,8 @@ class MovieManager < Sinatra::Base
   end
 
   get '/movies/:id/comments/new' do
+    p params['id']
+    @movie = Movie.find(id: params['id'])
     erb :'/comments/new'
   end
 
