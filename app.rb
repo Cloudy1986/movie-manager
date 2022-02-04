@@ -15,11 +15,11 @@ class MovieManager < Sinatra::Base
 
   get '/movies' do
     @movies = Movie.all
-    erb :index
+    erb :'/movies/index'
   end
 
   get '/movies/new' do
-    erb :new
+    erb :'/movies/new'
   end
 
   post '/movies' do
@@ -34,7 +34,7 @@ class MovieManager < Sinatra::Base
 
   get '/movies/:id/edit' do
     @movie = Movie.find(id: params['id'])
-    erb :edit
+    erb :'/movies/edit'
   end
 
   patch '/movies/:id' do
