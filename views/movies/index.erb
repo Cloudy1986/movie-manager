@@ -13,6 +13,10 @@
   <form action="/movies/<%= movie.id %>/comments/new" method="get">
     <input type="submit" value="Add comment">
   </form>
+  <% movie.comments.each do |comment| %>
+  <%= comment['text'] %>
+  <% end %>
+
 </li>
 <% end %>
 

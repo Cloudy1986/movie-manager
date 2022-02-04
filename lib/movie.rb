@@ -60,4 +60,13 @@ class Movie
     Movie.new(id: result[0]['id'], title: result[0]['title'])
   end
 
+  def comments
+    if ENV['ENVIRONMENT'] == 'test'
+      connection = PG.connect(dbname: 'movie_manager_test')
+    else
+      connection = PG.connect(dbname: 'movie_manager')
+    end
+    connection.exec_params("SELECT * FROM comments WHERE movie_id = $1;", [id])
+  end
+
 end

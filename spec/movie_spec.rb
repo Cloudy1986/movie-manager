@@ -65,4 +65,19 @@ describe Movie do
     end
   end
 
+  describe '#comments' do
+    it 'returns the comments for a movie' do
+      movie = Movie.create(title: 'Made up title')
+      p movie
+      
+      connection = PG.connect(dbname: 'movie_manager_test')
+      result = connection.exec_params("INSERT INTO comments (text, movie_id) VALUES ('Made up comment text', $1);", [movie.id])
+
+      comment = movie.comments[0]
+      p comment
+
+      expect(comment['text']).to eq 'Made up comment text'
+    end
+  end
+
 end
