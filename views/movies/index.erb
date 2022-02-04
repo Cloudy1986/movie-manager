@@ -1,24 +1,26 @@
 <h1>Movies List</h1>
 
 <% @movies.each do |movie| %>
-<li>
-  <%= movie.title %>
-  <form action="/movies/<%= movie.id %>" method="post">
-    <input type="hidden" name="_method" value="delete">
-    <input type="submit" value="Delete">
-  </form>
-  <form action="/movies/<%= movie.id %>/edit" method="get">
-    <input type="submit" value="Edit">
-  </form>
-  <form action="/movies/<%= movie.id %>/comments/new" method="get">
-    <input type="submit" value="Add comment">
-  </form>
-  <% movie.comments.each do |comment| %>
-  <%= comment['text'] %>
+<div>
+  <li>
+    <%= movie.title %>
+    <form action="/movies/<%= movie.id %>" method="post">
+      <input type="hidden" name="_method" value="delete">
+      <input type="submit" value="Delete">
+    </form>
+    <form action="/movies/<%= movie.id %>/edit" method="get">
+      <input type="submit" value="Edit">
+    </form>
+    <form action="/movies/<%= movie.id %>/comments/new" method="get">
+      <input type="submit" value="Add comment">
+    </form>
+    <% movie.comments.each do |comment| %>
+    <li><%= comment['text'] %></li>
+    <% end %>
+  </li>
+  <br>
   <% end %>
-
-</li>
-<% end %>
+</div>
 
 <br>
 
