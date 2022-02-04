@@ -47,5 +47,12 @@ class MovieManager < Sinatra::Base
     erb :'/comments/new'
   end
 
+  post '/movies/:id/comments' do
+    p params
+    p params['comment_text']
+    p params['id']
+    redirect '/movies'
+  end
+
   run! if app_file == $0
 end
