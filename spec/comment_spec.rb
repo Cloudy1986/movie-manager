@@ -17,4 +17,23 @@ describe Comment do
     end
   end
 
+  describe '.where' do
+    it 'gets the relevant comments from the databse' do
+      movie = Movie.create(title: "This is a movie title")
+      Comment.create(text: 'This is a test comment', movie_id: movie.id)
+      Comment.create(text: 'This is a second test comment', movie_id: movie.id)
+  
+      comments = Comment.where(movie_id: movie.id)
+      comment = comments.first
+      
+      test_connection = PG.connect(dbname: 'movie_manager_test')
+      test_result = test_connection.exec_params("SELECT * FROM comments WHERE id = #{comment.id};")
+
+      expect(comments.length).to eq 2
+      expect(comment.id).to eq test_result.first['id']
+      expect(comment.text).to eq 'This is a test comment'
+      expect(comment.movie_id).to eq movie.id
+    end
+  end
+
 end
