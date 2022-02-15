@@ -1,7 +1,11 @@
 feature 'Delete Movie' do
   
   scenario 'user can delete a movie from the list' do
-    visit '/movies'
+    User.create(email: 'test@example.com', password: 'password123')
+    visit '/log-in'
+    fill_in 'email', with: 'test@example.com'
+    fill_in 'password', with: 'password123'
+    click_button 'Log in'
     click_link 'Add Movie'
     fill_in 'title', with: 'Batman Begins'
     click_button 'Submit'

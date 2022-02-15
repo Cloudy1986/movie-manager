@@ -11,20 +11,27 @@ class MovieManager < Sinatra::Base
   end
 
   register Sinatra::Flash
-
   enable :sessions, :method_override
+
+  def logged_in?
+    if !session[:user_id]
+      redirect '/'
+    end
+  end
 
   get '/' do
     erb :homepage
   end
 
   get '/movies' do
+    logged_in?
     @user = User.find(id: session[:user_id])
     @movies = Movie.all
     erb :'/movies/index'
   end
 
   get '/movies/new' do
+    logged_in?
     erb :'/movies/new'
   end
 
@@ -41,6 +48,7 @@ class MovieManager < Sinatra::Base
   end
 
   get '/movies/:id/edit' do
+    logged_in?
     @movie = Movie.find(id: params['id'])
     erb :'/movies/edit'
   end
@@ -52,6 +60,7 @@ class MovieManager < Sinatra::Base
   end
 
   get '/movies/:id/comments/new' do
+    logged_in?
     @movie = Movie.find(id: params['id'])
     erb :'/comments/new'
   end

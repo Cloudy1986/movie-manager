@@ -28,4 +28,16 @@ feature 'Log in and log out' do
     expect(current_path).to eq '/log-in'
     expect(page).to have_content 'Please check your email or password'
   end
+
+  scenario 'users that are not logged in can only see homepage, log in and sign up pages' do
+    movie = Movie.create(title: 'Test movie title')
+    visit '/movies'
+    expect(current_path).to eq '/'
+    visit 'movies/new'
+    expect(current_path).to eq '/'
+    visit "movies/#{movie.id}/edit"
+    expect(current_path).to eq '/'
+    visit "/movies/#{movie.id}/comments/new"
+    expect(current_path).to eq '/'
+  end
 end
