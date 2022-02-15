@@ -71,8 +71,12 @@ class MovieManager < Sinatra::Base
 
   post '/log-in/new' do
     user = User.authenticate(email: params['email'], password: params['password'])
-    session[:user_id] = user.id
-    redirect '/movies'
+    if user
+      session[:user_id] = user.id
+      redirect '/movies'
+    else
+      redirect 'log-in'
+    end
   end
 
   run! if app_file == $0
