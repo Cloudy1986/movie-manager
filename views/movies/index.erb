@@ -1,5 +1,9 @@
 <h1>Movies List</h1>
 
+<% if @user %>
+<h3>You are signed in as <%= @user.email %></h3>
+<% end %>
+
 <% @movies.each do |movie| %>
 <div>
   <ul>

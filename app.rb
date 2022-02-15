@@ -16,6 +16,7 @@ class MovieManager < Sinatra::Base
   end
 
   get '/movies' do
+    @user = User.find(id: session[:user_id])
     @movies = Movie.all
     erb :'/movies/index'
   end
@@ -59,7 +60,8 @@ class MovieManager < Sinatra::Base
   end
 
   post '/sign-up/new' do
-    User.create(email: params['email'], password: params['password'])
+    user = User.create(email: params['email'], password: params['password'])
+    session[:user_id] = user.id
     redirect '/movies'
   end
 
