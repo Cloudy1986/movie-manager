@@ -26,5 +26,17 @@ describe User do
       expect(returned_user.email).to eq user.email
     end
   end
+
+  describe '.authenticate' do
+    it 'returns the user if the email address is in the user table' do
+      user = User.create(email: 'bob@example.com', password: 'bfgjkerbfj')
+
+      authenticated_user = User.authenticate(email: 'bob@example.com' , password: 'bfgjkerbfj')
+      
+      expect(authenticated_user).to be_a User
+      expect(authenticated_user.email).to eq user.email
+      expect(authenticated_user.id).to eq user.id
+    end
+  end
   
 end

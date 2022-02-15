@@ -32,4 +32,15 @@ class User
     User.new(id: result[0]['id'], email: result[0]['email'])
   end
 
+  def self.authenticate(email:, password:)
+    if ENV['ENVIRONMENT'] == 'test'
+      connection = PG.connect(dbname: 'movie_manager_test')
+    else
+      connection = PG.connect(dbname: 'movie_manager')
+    end
+    result = connection.exec_params("SELECT * FROM users WHERE email = $1;", [email])
+    return if result.any? != true
+    User.new(id: result[0]['id'], email: result[0]['email'])
+  end
+
 end
