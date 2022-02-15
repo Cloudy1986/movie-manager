@@ -41,4 +41,17 @@ feature 'Log in and log out' do
     visit "/movies/#{movie.id}/comments/new"
     expect(current_path).to eq '/'
   end
+
+  scenario 'user can log out' do
+    User.create(email: 'roger@example.com', password: 'bnfjksdbnjk')
+    visit 'log-in'
+    fill_in 'email', with: 'roger@example.com'
+    fill_in 'password', with: 'bnfjksdbnjk'
+    click_button 'Log in' 
+    click_button 'Log out'
+    expect(current_path).to eq '/'
+    expect(page).to have_content 'You have logged out.'
+    visit '/movies'
+    expect(current_path).to eq '/'
+  end
 end

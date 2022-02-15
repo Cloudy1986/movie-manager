@@ -4,9 +4,9 @@
 <h3>You are signed in as <%= @user.email %></h3>
 <% end %>
 
-<%= flash[:notice_movie_added] %>
-<%= flash[:notice_movie_deleted] %>
-<%= flash[:notice_movie_updated] %>
+<h3><%= flash[:notice_movie_added] %></h3>
+<h3><%= flash[:notice_movie_deleted] %></h3>
+<h3><%= flash[:notice_movie_updated] %></h3>
 
 <% @movies.each do |movie| %>
 <div>
@@ -35,3 +35,10 @@
 <br>
 
 <a href='/movies/new'><button>Add Movie</button></a>
+
+<br>
+<br>
+
+<form action="/log-in/destroy" method="post">
+  <input type="submit" value="Log out">
+</form>

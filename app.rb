@@ -95,5 +95,11 @@ class MovieManager < Sinatra::Base
     end
   end
 
+  post '/log-in/destroy' do
+    session.clear
+    flash[:notice_logged_out] = 'You have logged out.'
+    redirect '/'
+  end
+
   run! if app_file == $0
 end
