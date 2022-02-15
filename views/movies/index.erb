@@ -4,6 +4,10 @@
 <h3>You are signed in as <%= @user.email %></h3>
 <% end %>
 
+<%= flash[:notice_movie_added] %>
+<%= flash[:notice_movie_deleted] %>
+<%= flash[:notice_movie_updated] %>
+
 <% @movies.each do |movie| %>
 <div>
   <ul>

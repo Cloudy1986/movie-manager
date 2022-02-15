@@ -6,5 +6,6 @@ feature 'Add Movie' do
     fill_in 'title', with: 'Platoon'
     click_button 'Submit'
     expect(page).to have_content('Platoon')
+    expect(page).to have_content 'Movie added'
   end
 end

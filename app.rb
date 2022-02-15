@@ -1,5 +1,6 @@
 require 'sinatra/base'
 require 'sinatra/reloader'
+require 'sinatra/flash'
 require './lib/movie'
 require './lib/comment'
 require './lib/user'
@@ -8,6 +9,8 @@ class MovieManager < Sinatra::Base
   configure :development do
     register Sinatra::Reloader
   end
+
+  register Sinatra::Flash
 
   enable :sessions, :method_override
 
@@ -27,11 +30,13 @@ class MovieManager < Sinatra::Base
 
   post '/movies' do
     Movie.create(title: params["title"])
+    flash[:notice_movie_added] = 'Movie added'
     redirect '/movies'
   end
 
   delete '/movies/:id' do
     Movie.delete(id: params['id'])
+    flash[:notice_movie_deleted] = 'Movie deleted'
     redirect '/movies'
   end
 
@@ -42,6 +47,7 @@ class MovieManager < Sinatra::Base
 
   patch '/movies/:id' do
     Movie.update(id: params['id'], title: params['title'])
+    flash[:notice_movie_updated] = 'Movie updated'
     redirect '/movies'
   end
 
@@ -75,6 +81,7 @@ class MovieManager < Sinatra::Base
       session[:user_id] = user.id
       redirect '/movies'
     else
+      flash[:notice_check_details]
       redirect 'log-in'
     end
   end

@@ -10,5 +10,6 @@ feature 'Edit Movie' do
     expect(page).to have_content 'Movies List'
     expect(page).not_to have_content 'Batman Begins'
     expect(page).to have_content 'The Dark Knight'
+    expect(page).to have_content 'Movie updated'
   end
 end

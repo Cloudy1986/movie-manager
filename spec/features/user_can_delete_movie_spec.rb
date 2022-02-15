@@ -8,6 +8,7 @@ feature 'Delete Movie' do
     click_button 'Delete'
     expect(page).to have_content 'Movies List'
     expect(page).not_to have_content 'Batman Begins'
+    expect(page).to have_content 'Movie deleted'
   end
   
 end
