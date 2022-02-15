@@ -2,6 +2,7 @@ require 'sinatra/base'
 require 'sinatra/reloader'
 require './lib/movie'
 require './lib/comment'
+require './lib/user'
 
 class MovieManager < Sinatra::Base
   configure :development do
@@ -58,7 +59,7 @@ class MovieManager < Sinatra::Base
   end
 
   post '/sign-up/new' do
-    # User.create(email: params['email'], password: params['password'])
+    User.create(email: params['email'], password: params['password'])
     redirect '/movies'
   end
 
