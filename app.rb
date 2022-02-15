@@ -49,11 +49,12 @@ class MovieManager < Sinatra::Base
   end
 
   post '/movies/:id/comments' do
-    # p params
-    # p params['comment_text'] # text submitted in the form
-    # p params['id'] # bookmark id rather than comment id
     Comment.create(text: params['comment_text'], movie_id: params['id'])
     redirect '/movies'
+  end
+
+  get '/sign-up' do
+    erb :'users/sign_up'
   end
 
   run! if app_file == $0
