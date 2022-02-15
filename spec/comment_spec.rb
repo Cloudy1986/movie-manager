@@ -4,7 +4,8 @@ describe Comment do
 
   describe '.create' do
     it 'creates a comment and adds it to the database' do
-      movie = Movie.create(title: 'Made up movie title')
+      user = User.create(email: 'mary@example.com', password: 'bdfbkjfdbn')
+      movie = Movie.create(title: 'Made up movie title', user_id: user.id)
 
       comment = Comment.create(text: 'This is made up comment text', movie_id: movie.id)
       test_connection = PG.connect(dbname: 'movie_manager_test')
@@ -19,7 +20,8 @@ describe Comment do
 
   describe '.where' do
     it 'gets the relevant comments from the databse' do
-      movie = Movie.create(title: "This is a movie title")
+      user = User.create(email: 'mary@example.com', password: 'bdfbkjfdbn')
+      movie = Movie.create(title: "This is a movie title", user_id: user.id)
       Comment.create(text: 'This is a test comment', movie_id: movie.id)
       Comment.create(text: 'This is a second test comment', movie_id: movie.id)
   

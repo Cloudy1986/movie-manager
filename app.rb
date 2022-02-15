@@ -26,7 +26,7 @@ class MovieManager < Sinatra::Base
   get '/movies' do
     logged_in?
     @user = User.find(id: session[:user_id])
-    @movies = Movie.all
+    @movies = Movie.find_user_movies(user_id: session[:user_id])
     erb :'/movies/index'
   end
 
@@ -36,7 +36,7 @@ class MovieManager < Sinatra::Base
   end
 
   post '/movies' do
-    Movie.create(title: params["title"])
+    Movie.create(title: params["title"], user_id: session[:user_id])
     flash[:notice_movie_added] = 'Movie added'
     redirect '/movies'
   end

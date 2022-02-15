@@ -30,7 +30,8 @@ feature 'Log in and log out' do
   end
 
   scenario 'users that are not logged in can only see homepage, log in and sign up pages' do
-    movie = Movie.create(title: 'Test movie title')
+    user = User.create(email: 'roger@example.com', password: 'bnfjksdbnjk')
+    movie = Movie.create(title: 'Test movie title', user_id: user.id)
     visit '/movies'
     expect(current_path).to eq '/'
     visit 'movies/new'

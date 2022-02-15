@@ -1,7 +1,7 @@
 feature 'Add and View comments' do
   scenario 'user can add and view comments' do
-    User.create(email: 'test@example.com', password: 'password123')
-    movie = Movie.create(title: 'Test movie title in feature test')
+    user = User.create(email: 'test@example.com', password: 'password123')
+    movie = Movie.create(title: 'Test movie title in feature test', user_id: user.id)
     visit '/log-in'
     fill_in 'email', with: 'test@example.com'
     fill_in 'password', with: 'password123'
