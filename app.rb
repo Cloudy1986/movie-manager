@@ -81,7 +81,7 @@ class MovieManager < Sinatra::Base
       session[:user_id] = user.id
       redirect '/movies'
     else
-      flash[:notice_check_details]
+      flash[:notice_check_details] = 'Please check your email or password'
       redirect 'log-in'
     end
   end
