@@ -57,5 +57,10 @@ class MovieManager < Sinatra::Base
     erb :'users/sign_up'
   end
 
+  post '/sign-up/new' do
+    # User.create(email: params['email'], password: params['password'])
+    redirect '/movies'
+  end
+
   run! if app_file == $0
 end
